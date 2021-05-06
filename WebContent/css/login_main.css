@@ -201,7 +201,7 @@ iframe {
 }
 
 .login100-form-title {
-  font-family: Raleway-Medium;
+  font-family: Raleway-Bold;
   font-size: 30px;
   color: #555555;
   line-height: 1.2;
@@ -221,8 +221,11 @@ iframe {
   width: 100%;
   position: relative;
   background-color: #fff;
-  border: 1px solid #e6e6e6;
   border-radius: 2px;
+  border: 1px solid #333;
+  border-top: none;
+  border-right: none;
+  border-left: none;
 }
 
 
@@ -237,7 +240,13 @@ iframe {
   width: 100%;
   background: transparent;
   height: 55px;
-  padding: 0 25px 0 25px;
+  padding: 0 8px 0 8px;
+  
+  
+}
+
+.input100::placeholder {
+	color: #444444;
 }
 /*------------------------------------------------------------------
 [ Focus Input ]*/
