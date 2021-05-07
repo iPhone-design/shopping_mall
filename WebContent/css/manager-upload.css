@@ -5,3 +5,25 @@
 	height: 100px;
 	background-color: cyan;	
 }
+
+.form {
+	padding: 100px;
+	position: relative;
+}
+
+.welcome-admin {
+	width: 500px;
+	height: 500px;
+	position: absolute;
+	left: 50%;
+    right: 50%;
+    top: 50%;
+	font-size: 50px;
+	
+}
+
+#image_container {
+    overflow: auto;
+    height: 300px;
+    display: flex;
+}
