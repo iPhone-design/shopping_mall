@@ -1,3 +1,6 @@
+<%@page import="java.util.Date"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.io.File"%>
 <%@page import="review.Review"%>
 <%@page import="review.ReviewDAO"%>
 <%@page import="review.ReviewRepository"%>
@@ -15,23 +18,28 @@
 	<%
 		String uploadDir = this.getClass().getResource("").getPath();
 		uploadDir = uploadDir.substring(1, uploadDir.indexOf(".metadata")) + "shopping_mall/WebContent/imageUpload";
-		out.print("절대경로 : " + uploadDir + "<br>");
 		
 		int maxSize = 1024 * 1024 * 100;
 		String encoding = "UTF-8";
 		
 		MultipartRequest multipartRequest = new MultipartRequest(request, uploadDir, maxSize, encoding, new DefaultFileRenamePolicy());
-		uploadDir += multipartRequest.getOriginalFileName("file");
 		
 		String id = multipartRequest.getParameter("id");
 		String text = multipartRequest.getParameter("text");
-		out.println(id);
-		out.println(text);
+		String fileName = multipartRequest.getOriginalFileName("file");
+		String now = new SimpleDateFormat("yyyy-MM-dd-HH_mm_ss_").format(new Date());
+		
+		File file = new File(uploadDir + "/" + fileName);
+		out.println(uploadDir + fileName);
+		file.renameTo(new File(uploadDir + "/" + now + fileName));
+		out.println(uploadDir + now + fileName);
 		
 		ReviewDAO dao = new ReviewDAO();
 		ReviewRepository rr = new ReviewRepository(dao);
+		rr.reviewAdd(new Review(id, now + fileName, text));
 		
-		rr.reviewAdd(new Review(id, uploadDir, text));
+		Thread.sleep(5000);
+		response.sendRedirect("bullentin-board.jsp");
 	%>
 </body>
 </html>

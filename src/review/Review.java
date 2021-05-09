@@ -10,41 +10,34 @@ public class Review implements Serializable {
 	
 	private int num;
 	private String id;
-	private String filePath;
+	private String fileName;
 	private String text;
-	private byte[] image;
 	
-	public Review(String id, String filePath, String text) {
-		this.id = id;
-		this.filePath = filePath;
-		this.text = text;
-	}
-	
-	public Review(String id, byte[] image, String text) {
-		this.id = id;
-		this.image = image;
-		this.text = text;
+	public Review() {
+		super();
 	}
 
-	public Review(String filePath) {
+	public Review(String id, String fileName, String text) {
+		this.id = id;
+		this.fileName = fileName;
+		this.text = text;
+	}
+	
+	public Review(String fileName) {
 		super();
-		this.filePath = filePath;
+		this.fileName = fileName;
 	}
 
 	public String getId() {
 		return id;
 	}
 	
-	public String getFilePath() {
-		return filePath;
+	public String getFileName() {
+		return fileName;
 	}
 
 	public String getText() {
 		return text;
-	}
-	
-	public byte[] getImage() {
-		return image;
 	}
 	
 	public int getNum() {
@@ -55,7 +48,7 @@ public class Review implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((filePath == null) ? 0 : filePath.hashCode());
+		result = prime * result + ((fileName == null) ? 0 : fileName.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
 		return result;
@@ -70,10 +63,10 @@ public class Review implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Review other = (Review) obj;
-		if (filePath == null) {
-			if (other.filePath != null)
+		if (fileName == null) {
+			if (other.fileName != null)
 				return false;
-		} else if (!filePath.equals(other.filePath))
+		} else if (!fileName.equals(other.fileName))
 			return false;
 		if (id == null) {
 			if (other.id != null)
@@ -90,7 +83,7 @@ public class Review implements Serializable {
 	
 	@Override
 	public String toString() {
-		return "Review [id=" + id + ", filePath=" + filePath + ", text=" + text + "]";
+		return "Review [id=" + id + ", filePath=" + fileName + ", text=" + text + "]";
 	}
 	
 	public static byte[] imageToByteArray(String filePath) {
