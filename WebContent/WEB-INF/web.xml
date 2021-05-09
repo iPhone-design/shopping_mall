@@ -25,24 +25,24 @@
         <url-pattern>*.jspx</url-pattern>
     </servlet-mapping>
   <servlet>
- 	<servlet-name>ConnectionProvider</servlet-name>
-  	<servlet-class>jdbc.connectionProvider.ConnectionProvider</servlet-class>
-  	<init-param>
-  		<param-name>driver</param-name>
-  		<param-value>com.mysql.jdbc.Driver</param-value>
-  	</init-param>
-  	<init-param>
-  		<param-name>url</param-name>
-  		<param-value>jdbc:mysql://localhost:3306/mall_db</param-value>
-  	</init-param>
-  	<init-param>
-  		<param-name>user</param-name>
-  		<param-value>root</param-value>
-  	</init-param>
-  	<init-param>
-  		<param-name>password</param-name>
-  		<param-value>root</param-value>
-  	</init-param>
-  	<load-on-startup>1</load-on-startup>
+    <servlet-name>ConnectionProvider</servlet-name>
+    <servlet-class>jdbc.ConnectionProvider</servlet-class>
+    <init-param>
+      <param-name>driver</param-name>
+      <param-value>com.mysql.jdbc.Driver</param-value>
+    </init-param>
+    <init-param>
+      <param-name>url</param-name>
+      <param-value>jdbc:mysql://localhost:3306/mall_db</param-value>
+    </init-param>
+    <init-param>
+      <param-name>user</param-name>
+      <param-value>root</param-value>
+    </init-param>
+    <init-param>
+      <param-name>password</param-name>
+      <param-value>root</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
   </servlet>
 </web-app>

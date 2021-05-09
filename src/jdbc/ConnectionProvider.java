@@ -1,4 +1,4 @@
-package jdbc.connectionProvider;
+package jdbc;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -27,7 +27,6 @@ public class ConnectionProvider extends HttpServlet {
 		ds.setUsername(user);
 		ds.setPassword(password);
 		dataSource = ds;
-		System.out.println(dataSource.toString());
 	}
 	
 	public static Connection getConnection() throws SQLException {

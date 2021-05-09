@@ -1,4 +1,4 @@
-package product.upload;
+package product;
 
 public class Product {
 	private int product_id;
