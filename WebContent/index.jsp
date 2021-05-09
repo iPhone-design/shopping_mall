@@ -1,17 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page import="java.util.regex.Matcher" %>
-<%@ page import="java.io.File" %>
 
-<%
-	String uploadDir = this.getClass().getResource("").getPath();
-
-	uploadDir = uploadDir.substring(1, uploadDir.indexOf(".metadata")) + "shopping_mall/WebContent/imageUpload";
-	String dir = uploadDir.replaceAll("/", Matcher.quoteReplacement(File.separator));
-	pageContext.setAttribute("dir", dir);
-	pageContext.setAttribute("backslash", "\\");
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -764,15 +754,12 @@
 			</div>
 
 			<div class="row isotope-grid">
-			<c:set var="dir" value="${ dir }" />
-			<c:set var="backslash" value=" ${ backslash }" />
-			${ backslash }
 			<c:forEach var="product_list" items="${ product_list }">
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
-							<img src="save_images/asdf.jpg" alt="${ dir }${ backslash }${ product_list.photo_1 }">
+							<img src="imageUpload/${ product_list.photo_1 }" alt="${ product_list.photo_1 }">
 							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 								Quick View
 							</a>
