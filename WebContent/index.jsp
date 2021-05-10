@@ -760,8 +760,9 @@
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
-							<img src="/imageUpload/${ product_list.photo_1 }" alt="${ product_list.photo_1 }">
+							<img src="imageUpload/${ product_list.photo_1 }" alt="${ product_list.photo_1 }">
 							<a href="#" onclick="setText(${ product_list.product_id })" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+								
 								Quick View
 							</a>
 						</div>
@@ -971,35 +972,33 @@ Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a>
 								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
 								<div class="slick3 gallery-lb">
-									<div class="item-slick3" data-thumb="images/product-detail-01.jpg">
+									<div class="item-slick3 thumb-1" data-thumb="imageUpload/${ product_list[1].photo_1 }">
 										<div class="wrap-pic-w pos-relative">
-											<img id="product_photo1" src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
+											<img id="product_photo1" src="imageUpload/${ product_list[0].photo_1 }" alt="IMG-PRODUCT">
 
 											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
 												<i class="fa fa-expand"></i>
 											</a>
+											</div>
 										</div>
-									</div>
-
-									<div class="item-slick3" data-thumb="images/product-detail-02.jpg">
+									<div class="item-slick3 thumb-2" data-thumb="imageUpload/${ product_list[1].photo_1 }">
 										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-02.jpg" alt="IMG-PRODUCT">
+											<img id="product_photo2" src="imageUpload/${ product_list[1].photo_1 }" alt="IMG-PRODUCT">
 
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-02.jpg">
+											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
 												<i class="fa fa-expand"></i>
 											</a>
+											</div>
 										</div>
-									</div>
-
-									<div class="item-slick3" data-thumb="images/product-detail-03.jpg">
+									<div class="item-slick3 thumb-3" data-thumb="imageUpload/${ product_list[1].photo_1 }">
 										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-03.jpg" alt="IMG-PRODUCT">
+											<img id="product_photo3" src="imageUpload/${ product_list[1].photo_1 }" alt="IMG-PRODUCT">
 
-											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-03.jpg">
+											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
 												<i class="fa fa-expand"></i>
 											</a>
+											</div>
 										</div>
-									</div>
 								</div>
 							</div>
 						</div>
@@ -1110,11 +1109,28 @@ Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a>
 						console.log(id);
 						if (id == getId) {
 							console.log("${ product_list }");
+							<c:set var="id" value="${ product_list.product_id }" />
 							document.getElementById("product_name").innerText = "${ product_list.name }";
 							document.getElementById("product_price").innerText = "${ product_list.price }";
 							document.getElementById("product_description").innerText = "${ product_list.description }";
-							var path = "${ product_list.photo_1 }";
-							document.getElementById("product_photo1").setAttribute('src', 'imageUpload/' + path);
+							var path1 = "${ product_list.photo_1 }";
+							var path2 = "${ product_list.photo_2 }";
+							var path3 = "${ product_list.photo_3 }";
+							
+							console.log(path1);
+							console.log(path2);
+							console.log(path3);
+							
+							if (path1) {
+								document.getElementById("product_photo1").setAttribute('src', 'imageUpload/' + path1);
+								document.getElementsByClassName("item-slick3 thumb-1").setAttribute('data-thumb', 'imageUpload/' + path1);
+							}
+							if (path2) {
+								document.getElementById("product_photo2").setAttribute('src', 'imageUpload/' + path2);
+							}
+							if (path3) {
+								document.getElementById("product_photo3").setAttribute('src', 'imageUpload/' + path3);
+							}
 						}
 					</c:forEach>
 				}

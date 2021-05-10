@@ -50,11 +50,14 @@ public class ProductUploadServlet extends HttpServlet {
 		for (int i = 0; i < 3; i++) {
 			File file = new File(uploadDir + "/" + fileName[i]);
 			file.renameTo(new File(uploadDir + "/" + now + fileName[i]));
-			renameFileName[i] = now + fileName[i];
-			File imgFile = new File(uploadPath + renameFileName[i]);
+			
 			if (photo[i] != null) {
+				renameFileName[i] = now + fileName[i];
 				BufferedImage img = ImageIO.read(photo[i]);
+				File imgFile = new File(uploadPath + renameFileName[i]);
 				ImageIO.write(img, "png", imgFile);
+			} else {
+				renameFileName[i] = null;
 			}
 		}
 		dao.addProduct(name, renameFileName[0], renameFileName[1], renameFileName[2], price, description);

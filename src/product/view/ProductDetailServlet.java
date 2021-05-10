@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import product.Product;
 import product.ProductDao;
+import product.ProductPhoto;
 
 /**
  * Servlet implementation class ProductDetailServlet
@@ -28,15 +29,11 @@ public class ProductDetailServlet extends HttpServlet {
 			int getId = list.get(i).getProduct_id();
 			if (productId == getId) {
 				request.setAttribute("name", list.get(i).getName());
-				ArrayList<String> fileNameList = new ArrayList<>();
+				List<ProductPhoto> fileNameList = new ArrayList<>();
 				
-				fileNameList.add(list.get(i).getPhoto_1());
-				fileNameList.add(list.get(i).getPhoto_2());
-				fileNameList.add(list.get(i).getPhoto_3());
+				fileNameList.add(new ProductPhoto(list.get(i).getPhoto_1(), list.get(i).getPhoto_2(), list.get(i).getPhoto_3()));
 				
-				System.out.println(fileNameList);
-				
-				request.setAttribute("file-names", fileNameList);
+				request.setAttribute("fileNames", fileNameList);
 				request.setAttribute("price", list.get(i).getPrice());
 				request.setAttribute("description", list.get(i).getDescription());
 				break;
