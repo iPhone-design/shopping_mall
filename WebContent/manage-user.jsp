@@ -43,7 +43,7 @@
       </c:forEach>
 	</table>
 	
-	<c:forEach var ="pageNum" begin="1" end="${ @.pageTotalCount }">
+	<c:forEach var ="pageNum" begin="1" end="${ pageTotalCount }">
 	<a href="manage-user?page=${ pageNum }">[${ pageNum }]</a>
 	</c:forEach>
 	
