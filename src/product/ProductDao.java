@@ -19,7 +19,7 @@ public class ProductDao {
 				ResultSet rs = pstmt.executeQuery();
 				){
 			while(rs.next()) {
-				int productId = rs.getInt("product_id");
+				int productId = rs.getInt("number");
 				String name = rs.getString("name");
 				String photo_1 = rs.getString("photo_1");
 				String photo_2 = rs.getString("photo_2");
