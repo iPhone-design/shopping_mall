@@ -760,7 +760,7 @@
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
-							<img src="/shopping_mall/imageUpload/${ product_list.photo_1 }" alt="${ product_list.photo_1 }">
+							<img src="/imageUpload/${ product_list.photo_1 }" alt="${ product_list.photo_1 }">
 							<a href="#" onclick="setText(${ product_list.product_id })" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 								Quick View
 							</a>

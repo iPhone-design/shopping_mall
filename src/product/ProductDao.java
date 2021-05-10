@@ -34,14 +34,16 @@ public class ProductDao {
 		return list;
 	}
 	
-	public int addProduct(String name, String photo_1, int price, String description) {
+	public int addProduct(String name, String photo_1, String photo_2, String photo_3,int price, String description) {
 		try (Connection conn = ConnectionProvider.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO product_upload(name, photo_1, price, description) VALUES (?, ?, ?, ?)");
+				PreparedStatement pstmt = conn.prepareStatement("INSERT INTO product_upload(name, photo_1, photo_2, photo_3, price, description) VALUES (?, ?, ?, ?, ?, ?)");
 				){
 			pstmt.setString(1, name);
 			pstmt.setString(2, photo_1);
-			pstmt.setInt(3, price);
-			pstmt.setString(4, description);
+			pstmt.setString(3, photo_2);
+			pstmt.setString(4, photo_3);
+			pstmt.setInt(5, price);
+			pstmt.setString(6, description);
 			return pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
