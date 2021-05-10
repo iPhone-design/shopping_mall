@@ -2,7 +2,7 @@ CREATE DATABASE  IF NOT EXISTS `mall_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 
 USE `mall_db`;
 -- MySQL dump 10.13  Distrib 8.0.20, for Win64 (x86_64)
 --
--- Host: 127.0.0.1    Database: mall_db
+-- Host: localhost    Database: mall_db
 -- ------------------------------------------------------
 -- Server version	8.0.20
 
@@ -39,7 +39,7 @@ CREATE TABLE `review` (
 
 LOCK TABLES `review` WRITE;
 /*!40000 ALTER TABLE `review` DISABLE KEYS */;
-INSERT INTO `review` VALUES (1,'임시계정','2021-05-09-14_45_19_옷.PNG','우와 ~~~~~ 엄청 이쁘네요!!!!! ㅣㅁ넝리저ㅏㄷ뤂ㅈㅁㄱ');
+INSERT INTO `review` VALUES (1,'임시계정','2021-05-10-12_07_23_옷.PNG','테스트 임다!!! 우와아아아앙ㅇ 신기방기');
 /*!40000 ALTER TABLE `review` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -60,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-09 14:52:13
+-- Dump completed on 2021-05-10 12:08:51

@@ -67,7 +67,7 @@
             %>
         </div>
     </div>
-    <form action="/shopping_mall/imageUpload.jsp" method="post" enctype="multipart/form-data">
+    <form action="/shopping_mall/reviewUpload" method="post" enctype="multipart/form-data">
 		아이디:<br>
 		<input type="text" name="id" maxlength="30" placeholder="아이디" required/> <br>
 		내용:<br>
