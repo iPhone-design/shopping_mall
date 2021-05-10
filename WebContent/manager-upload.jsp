@@ -9,7 +9,9 @@
 	</div>
 	<div class="form-group">
     <label for="InputFile">파일 업로드</label>
-    <input type="file" id="InputFile" name="product-file" accept="image/*" onchange="setThumbnail(event);" multiple>
+    <input type="file" id="InputFile" name="product-file1" accept="image/*" onchange="setThumbnail(event);" />
+    <input type="file" id="InputFile" name="product-file2" accept="image/*" onchange="setThumbnail(event);" />
+    <input type="file" id="InputFile" name="product-file3" accept="image/*" onchange="setThumbnail(event);" />
     <div id="image_container"></div>
 
    	<p class="help-block">제품 사진을 올리세요.</p>

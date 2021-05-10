@@ -23,10 +23,6 @@ import product.ProductDao;
 public class ProductUploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("/shopping_mall");
-	}
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		URL uploadDir = getServletContext().getResource("imageUpload");
         String uploadPath = uploadDir.toString().substring(6);
@@ -36,26 +32,34 @@ public class ProductUploadServlet extends HttpServlet {
 		MultipartRequest mutlpartRequest = new MultipartRequest(request, System.getProperty("java.io.tmpdir"), maxSize, encoding, new DefaultFileRenamePolicy());
 		
 		String name = mutlpartRequest.getParameter("product-title");
-		String fileName = mutlpartRequest.getOriginalFileName("product-file");
+		String[] fileName = new String[3];
+		File[] photo = new File[3];
+		for (int i = 0; i < 3; i++) {
+			fileName[i] = mutlpartRequest.getOriginalFileName("product-file" + (i + 1));
+			photo[i] = mutlpartRequest.getFile("product-file" + (i + 1));
+		}
 		int price = Integer.parseInt(mutlpartRequest.getParameter("product-price"));
 		String description = mutlpartRequest.getParameter("product-content");
 		String now = new SimpleDateFormat("yyyy-MM-dd-HH_mm_ss_").format(new Date());
 		
 		
-		File photo = mutlpartRequest.getFile("product-file");
 		
-		
-		File file = new File(uploadDir + "/" + fileName);
-		file.renameTo(new File(uploadDir + "/" + now + fileName));
-		String renameFileName = now + fileName;
-		
-		File imgFile = new File(uploadPath + renameFileName);
-		BufferedImage img = ImageIO.read(photo);
-		ImageIO.write(img, "png", imgFile);
-		
+		System.out.println(mutlpartRequest.getParameterValues("product-file"));
 		ProductDao dao = new ProductDao();
-		dao.addProduct(name, renameFileName, price, description);
-		doGet(request, response);
+		String[] renameFileName = new String[3];
+		for (int i = 0; i < 3; i++) {
+			File file = new File(uploadDir + "/" + fileName[i]);
+			file.renameTo(new File(uploadDir + "/" + now + fileName[i]));
+			renameFileName[i] = now + fileName[i];
+			File imgFile = new File(uploadPath + renameFileName[i]);
+			if (photo[i] != null) {
+				BufferedImage img = ImageIO.read(photo[i]);
+				ImageIO.write(img, "png", imgFile);
+			}
+		}
+		dao.addProduct(name, renameFileName[0], renameFileName[1], renameFileName[2], price, description);
+		
+		response.sendRedirect("/shopping_mall");
 	}
 
 }
