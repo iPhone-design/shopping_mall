@@ -27,7 +27,7 @@
 <section id="team" class="pb-5">
     <div class="container">
         <h5 class="section-title h1">Review</h5>
-        <a href="index.jsp">HOME</a>
+        <a href="/shopping_mall">HOME</a>
         <div class="row">
        		<%
        			if (list != null) {
