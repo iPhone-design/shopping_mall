@@ -42,7 +42,6 @@
 			                            <div class="card">
 			                                <div class="card-body text-center">
 			                                    <p><img class=" img-fluid" src="${pageContext.request.contextPath}/imageUpload/<%= review.getFileName() %>" alt="card image"></p>
-			                                    <p> <%= review.getFileName() %>
 			                                    <h4 class="card-title"><%= review.getId() %></h4>
 			                                    <p class="card-text"><%= review.getText() %></p>
 			                                    <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
