@@ -84,9 +84,9 @@
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="index.html">Home</a>
+								<a href="/shopping_mall">Home</a>
 								<ul class="sub-menu">
-									<li><a href="index.html">Homepage 1</a></li>
+									<li><a href="/shopping_mall">Homepage 1</a></li>
 									<li><a href="home-02.html">Homepage 2</a></li>
 									<li><a href="home-03.html">Homepage 3</a></li>
 								</ul>
@@ -755,12 +755,13 @@
 
 			<div class="row isotope-grid">
 			<c:forEach var="product_list" items="${ product_list }">
+			<c:set var="product_id" value="${ product_list.product_id }" />
 				<div class="col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item women">
 					<!-- Block2 -->
 					<div class="block2">
 						<div class="block2-pic hov-img0">
-							<img src="imageUpload/${ product_list.photo_1 }" alt="${ product_list.photo_1 }">
-							<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
+							<img src="/shopping_mall/imageUpload/${ product_list.photo_1 }" alt="${ product_list.photo_1 }">
+							<a href="#" onclick="setText(${ product_list.product_id })" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">
 								Quick View
 							</a>
 						</div>
@@ -972,7 +973,7 @@ Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a>
 								<div class="slick3 gallery-lb">
 									<div class="item-slick3" data-thumb="images/product-detail-01.jpg">
 										<div class="wrap-pic-w pos-relative">
-											<img src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
+											<img id="product_photo1" src="images/product-detail-01.jpg" alt="IMG-PRODUCT">
 
 											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
 												<i class="fa fa-expand"></i>
@@ -1003,19 +1004,16 @@ Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a>
 							</div>
 						</div>
 					</div>
-					
-					<div class="col-md-6 col-lg-5 p-b-30">
-						<div class="p-r-50 p-t-5 p-lr-0-lg">
-							<h4 class="mtext-105 cl2 js-name-detail p-b-14">
-								Lightweight Jacket
-							</h4>
+				
+						<div class="col-md-6 col-lg-5 p-b-30">
+							<div class="p-r-50 p-t-5 p-lr-0-lg">
+								<h4 id="product_name" class="mtext-105 cl2 js-name-detail p-b-14">
+								</h4>
 
-							<span class="mtext-106 cl2">
-								$58.79
+							<span id="product_price" class="mtext-106 cl2">
 							</span>
 
-							<p class="stext-102 cl3 p-t-23">
-								Nulla eget sem vitae eros pharetra viverra. Nam vitae luctus ligula. Mauris consequat ornare feugiat.
+							<p id="product_description" lass="stext-102 cl3 p-t-23">
 							</p>
 							
 							<!--  -->
@@ -1095,16 +1093,34 @@ Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a>
 									<i class="fa fa-twitter"></i>
 								</a>
 
-								<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
-									<i class="fa fa-google-plus"></i>
-								</a>
+									<a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+										<i class="fa fa-google-plus"></i>
+									</a>
+								</div>
 							</div>
 						</div>
-					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+		<script>
+				function setText(id) {
+					<c:forEach var="product_list" items="${ product_list }">
+						var getId = Number("${ product_list.product_id }");
+						console.log(id);
+						if (id == getId) {
+							console.log("${ product_list }");
+							document.getElementById("product_name").innerText = "${ product_list.name }";
+							document.getElementById("product_price").innerText = "${ product_list.price }";
+							document.getElementById("product_description").innerText = "${ product_list.description }";
+							var path = "${ product_list.photo_1 }";
+							document.getElementById("product_photo1").setAttribute('src', 'imageUpload/' + path);
+						}
+					</c:forEach>
+				}
+		</script>
+	
+	
 
 <!--===============================================================================================-->	
 	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -1207,6 +1223,7 @@ Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a>
 	</script>
 <!--===============================================================================================-->
 	<script src="js/main.js"></script>
+
 
 </body>
 </html>

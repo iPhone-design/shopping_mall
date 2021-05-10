@@ -18,9 +18,9 @@
 	<div class="container-inner">
 	<div class="nav-inner">
 		<ul class="nav nav-stacked">
-  			<li role="presentation"><a href="#hi" aria-controls="hi" role="tab" data-toggle="tab">회원 관리</a></li>
+  			<li role="presentation"><a href="#manage_user" aria-controls="hi" role="tab" data-toggle="tab">회원 관리</a></li>
   			<li role="presentation"><a href="#product_add" aria-controls="product_add" role="tab" data-toggle="tab">상품 추가</a></li>
-  			<li role="presentation"><a>상품 관리</a></li>
+  			<li role="presentation"><a >상품 관리</a></li>
  			<li role="presentation"><a>로그아웃</a></li>
 		</ul>
 	</div>
@@ -29,7 +29,10 @@
 			<p class="welcome-admin">환영합니다 admin 님</p>
 		</div>
 		<div role="tabpanel" class="tab-pane" id="product_add">
-			<%@ include file="manager-upload.jsp" %>
+			<%@ include file="manage-upload.jsp" %>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="manage_user">
+			<%@ include file="manage-user.jsp" %>
 		</div>
 	</div>
 	</div>
