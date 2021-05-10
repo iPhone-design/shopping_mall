@@ -18,6 +18,7 @@
 	<%
 		String uploadDir = this.getClass().getResource("").getPath();
 		uploadDir = uploadDir.substring(1, uploadDir.indexOf(".metadata")) + "shopping_mall/WebContent/imageUpload";
+		out.println(uploadDir);
 		
 		int maxSize = 1024 * 1024 * 100;
 		String encoding = "UTF-8";
