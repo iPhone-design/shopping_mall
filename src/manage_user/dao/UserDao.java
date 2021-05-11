@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import jdbc.ConnectionProvider;
 import manage_user.model.User;
-import manage_user.servlet.ConnectionProvider;
 
 public class UserDao {
 	public void add(User user) {
@@ -38,15 +38,27 @@ public class UserDao {
 	}
 	public List<User> getAll() {
 		List<User> list = new ArrayList<>();
+		User user = null;
 		try (Connection conn = ConnectionProvider.getConnection();
 				PreparedStatement stmt = conn.prepareStatement("SELECT * FROM users");
 				ResultSet rs = stmt.executeQuery();) {
 			while (rs.next()) {
-				// TODO 리스트 유저 객체 추가
+				user = new User();
+				user.setUser_num(rs.getInt("user_num"));
+				user.setId(rs.getString("id"));
+				user.setName(rs.getString("name"));
+				user.setBirth(rs.getDate("birth"));
+				user.setPhone_num(rs.getInt("phone_num"));
+				user.setAddress(rs.getString("address"));
+				user.setJoin_date(rs.getDate("join_date").toLocalDate());
+				user.setGrade(rs.getInt("grade"));
+				list.add(user);
+				user.toString();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		list.toString();
 		return list;
 	}
 	public void update(User user) throws SQLException {
