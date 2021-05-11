@@ -15,6 +15,8 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
 <!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-5.15.3/css/all.min.css">
+<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="fonts/linearicons-v1.0.0/icon-font.min.css">
@@ -128,11 +130,11 @@
 							<i class="zmdi zmdi-favorite-outline"></i>
 						</a>
 						<a href="/shopping_mall/register.html" class="register icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-register" data-notify="0">
-							<i class="zmdi zmdi-account-add"></i>
+							<i class="fas fa-user-plus"></i>
 
 						</a>
 						<a href="/shopping_mall/login.html" class="login icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-login" data-notify="0">
-							<i class="zmdi zmdi-key"></i>
+							<i class="fas fa-user-lock"></i>
 						</a>
 					</div>
 				</nav>
@@ -181,8 +183,8 @@
 
 				<li>
 					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m p-lr-10 trans-04">
-							Help & FAQs
+						<a href="qna-board.jsp" class="flex-c-m p-lr-10 trans-04">
+							Q & A
 						</a>
 
 						<a href="#" class="flex-c-m p-lr-10 trans-04">
@@ -861,8 +863,8 @@
 						</li>
 
 						<li class="p-b-10">
-							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								FAQs
+							<a href="qna-board.jsp" class="stext-107 cl7 hov-cl1 trans-04">
+								Q & A
 							</a>
 						</li>
 					</ul>
