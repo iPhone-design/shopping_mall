@@ -972,27 +972,27 @@ Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a>
 								<div class="wrap-slick3-arrows flex-sb-m flex-w"></div>
 
 								<div class="slick3 gallery-lb">
-									<div class="item-slick3 thumb-1" data-thumb="imageUpload/${ product_list[1].photo_1 }">
+									<div class="item-slick3 thumb-1" data-thumb="">
 										<div class="wrap-pic-w pos-relative">
-											<img id="product_photo1" src="imageUpload/${ product_list[0].photo_1 }" alt="IMG-PRODUCT">
+											<img id="product_photo1" src="" alt="IMG-PRODUCT">
 
 											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
 												<i class="fa fa-expand"></i>
 											</a>
 											</div>
 										</div>
-									<div class="item-slick3 thumb-2" data-thumb="imageUpload/${ product_list[1].photo_1 }">
+									<div class="item-slick3 thumb-2" data-thumb="">
 										<div class="wrap-pic-w pos-relative">
-											<img id="product_photo2" src="imageUpload/${ product_list[1].photo_1 }" alt="IMG-PRODUCT">
+											<img id="product_photo2" src="" alt="IMG-PRODUCT">
 
 											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
 												<i class="fa fa-expand"></i>
 											</a>
 											</div>
 										</div>
-									<div class="item-slick3 thumb-3" data-thumb="imageUpload/${ product_list[1].photo_1 }">
+									<div class="item-slick3 thumb-3" data-thumb="">
 										<div class="wrap-pic-w pos-relative">
-											<img id="product_photo3" src="imageUpload/${ product_list[1].photo_1 }" alt="IMG-PRODUCT">
+											<img id="product_photo3" src="" alt="IMG-PRODUCT">
 
 											<a class="flex-c-m size-108 how-pos1 bor0 fs-16 cl10 bg0 hov-btn3 trans-04" href="images/product-detail-01.jpg">
 												<i class="fa fa-expand"></i>
@@ -1108,28 +1108,39 @@ Downloaded from <a href="https://themeslab.org/" target="_blank">Themeslab</a>
 						var getId = Number("${ product_list.product_id }");
 						console.log(id);
 						if (id == getId) {
-							console.log("${ product_list }");
 							<c:set var="id" value="${ product_list.product_id }" />
 							document.getElementById("product_name").innerText = "${ product_list.name }";
 							document.getElementById("product_price").innerText = "${ product_list.price }";
 							document.getElementById("product_description").innerText = "${ product_list.description }";
+							
 							var path1 = "${ product_list.photo_1 }";
 							var path2 = "${ product_list.photo_2 }";
 							var path3 = "${ product_list.photo_3 }";
 							
-							console.log(path1);
-							console.log(path2);
-							console.log(path3);
+							var pathes = [path1, path2, path3];
+							var imgTag = [];
 							
-							if (path1) {
-								document.getElementById("product_photo1").setAttribute('src', 'imageUpload/' + path1);
-								document.getElementsByClassName("item-slick3 thumb-1").setAttribute('data-thumb', 'imageUpload/' + path1);
+							var tagList = document.getElementsByTagName("li");
+							for (var i = 0; i < tagList.length; i++) {
+								var liTag = tagList[i].getAttribute("role");
+								if (liTag === 'presentation') {
+									var liTag = tagList[i].firstElementChild;
+									imgTag.push(liTag);
+								}
 							}
-							if (path2) {
-								document.getElementById("product_photo2").setAttribute('src', 'imageUpload/' + path2);
-							}
-							if (path3) {
-								document.getElementById("product_photo3").setAttribute('src', 'imageUpload/' + path3);
+							console.log(imgTag);
+							for (var i = 0; i < 3; i++) {
+								var photoIndex = 'product_photo' + String(i + 1);
+								if (pathes[i]) {
+									document.getElementById(photoIndex).style.display = 'block';
+									imgTag[i].style.display = 'block';
+									imgTag[i].setAttribute('src', 'imageUpload/' + pathes[i]);
+									console.log(photoIndex);
+									document.getElementById(photoIndex).setAttribute('src', 'imageUpload/' + pathes[i]);
+								} else {
+									document.getElementById(photoIndex).style.display = 'none';
+									imgTag[i].style.display = 'none';
+								}
 							}
 						}
 					</c:forEach>
