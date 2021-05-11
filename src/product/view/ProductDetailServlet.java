@@ -1,6 +1,7 @@
 package product.view;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import product.Product;
 import product.ProductDao;
+import product.ProductPhoto;
 
 /**
  * Servlet implementation class ProductDetailServlet
@@ -27,7 +29,11 @@ public class ProductDetailServlet extends HttpServlet {
 			int getId = list.get(i).getProduct_id();
 			if (productId == getId) {
 				request.setAttribute("name", list.get(i).getName());
-				request.setAttribute("photo1", list.get(i).getPhoto_1());
+				List<ProductPhoto> fileNameList = new ArrayList<>();
+				
+				fileNameList.add(new ProductPhoto(list.get(i).getPhoto_1(), list.get(i).getPhoto_2(), list.get(i).getPhoto_3()));
+				
+				request.setAttribute("fileNames", fileNameList);
 				request.setAttribute("price", list.get(i).getPrice());
 				request.setAttribute("description", list.get(i).getDescription());
 				break;
