@@ -6,6 +6,7 @@ public class Qna {
 	private int num;
 	private String id;
 	private String title;
+	private String content;
 	private Date date;
 	
 	public Qna() {
@@ -20,11 +21,12 @@ public class Qna {
 		this.date = date;
 	}
 
-	public Qna(int num, String id, String title, Date date) {
+	public Qna(int num, String id, String title, String content, Date date) {
 		super();
 		this.num = num;
 		this.id = id;
 		this.title = title;
+		this.content = content;
 		this.date = date;
 	}
 
@@ -38,6 +40,10 @@ public class Qna {
 
 	public String getTitle() {
 		return title;
+	}
+
+	public String getContent() {
+		return content;
 	}
 
 	public Date getDate() {
