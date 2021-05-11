@@ -14,11 +14,11 @@ public class QnaServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		res.sendRedirect("/shopping_mall/qna_board.jsp"); // qna_board.jsp파일 만들어서 페이지 구현해야함!!
+		res.sendRedirect("/shopping_mall/qna-board.jsp");
 	}
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		
+		res.setCharacterEncoding("UTF-8");
 	}
 }
