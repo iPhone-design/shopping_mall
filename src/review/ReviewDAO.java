@@ -23,21 +23,35 @@ public class ReviewDAO {
 		return -1;
 	}
 	
-	public List<Review> reviewRead() {
+	public List<Review> reviewRead(int startRow, int endRow) {
 		List<Review> list = new ArrayList<Review>();
 		try (Connection conn = ConnectionProvider.getConnection();
-				PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM review");
-				ResultSet rs = pstmt.executeQuery();) {
-			while (rs.next()) {
-				list.add(new Review(rs.getString("id"), rs.getString("fileName"), rs.getString("text")));
-			}
-			if (list.size() > 0) {
-				return list;
+				PreparedStatement pstmt = conn.prepareStatement("SELECT * FROM review WHERE number BETWEEN ? AND ? ORDER BY number DESC");) {
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			try (ResultSet rs = pstmt.executeQuery()) {
+				while (rs.next()) {
+					list.add(new Review(rs.getString("id"), rs.getString("fileName"), rs.getString("text")));
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return null;
+		return list;
+	}
+	
+	public int reviewCount() {
+		int count = 0;
+		try (Connection conn = ConnectionProvider.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("SELECT count(*) FROM review");
+				ResultSet rs = pstmt.executeQuery();) {
+				if (rs.next()) {
+					count = rs.getInt(1);
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 	
 	public void reviewDelete(int num) {

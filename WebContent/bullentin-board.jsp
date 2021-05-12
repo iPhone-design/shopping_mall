@@ -5,10 +5,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
+	int pageSize = 15;
+	
+	String pageNum = request.getParameter("pageNum");
+	if (pageNum == null) {
+		pageNum = "1";
+	}
+	
+	int currentPage = Integer.parseInt(pageNum);
+	
+	int startRow = (currentPage - 1) * pageSize + 1;
+	int endRow = currentPage * pageSize;
+	
 	Review review = new Review();
 	ReviewDAO dao = new ReviewDAO();
 	ReviewRepository rr = new ReviewRepository(dao);
-	List<Review> list = rr.reviewRead();
+	List<Review> list = rr.reviewRead(startRow, endRow);
+	int count = rr.reviewCount();
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -29,7 +43,56 @@
         <h5 class="section-title h1">Review</h5>
         <a href="/shopping_mall">HOME</a>
         <div class="row">
-        	<script type="text/javascript">
+       		<%
+       			if (count > 0) {
+       				int number = count - (currentPage - 1) * pageSize;
+	           		for (int i = 0; i < list.size(); i++) {
+	           			review = list.get(i);
+            %>
+			            <!-- Team member -->
+			           	<div class="col-xs-12 col-sm-6 col-md-4">
+			                <div class="image-flip" >
+			                    <div class="mainflip flip-0">
+			                        <div class="frontside">
+			                            <div class="card">
+			                                <div class="card-body text-center">
+			                                    <p><img class=" img-fluid" src="${pageContext.request.contextPath}/imageUpload/<%= review.getFileName() %>" alt="card image"></p>
+			                                    <h4 class="card-title"><%= review.getId() %></h4>
+			                                    <p class="card-text"><%= review.getText() %></p>
+			                                    <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
+			                                </div>
+			                            </div>
+			                        </div>
+			                        <div class="backside">
+			                            <div class="card">
+			                                <div class="card-body text-center mt-4">
+			                                    <h4 class="card-title"><%= review.getId() %></h4>
+			                                    <p class="card-text"><%= review.getText() %></p>
+			                                </div>
+			                            </div>
+			                        </div>
+			                    </div>
+			                </div>
+			            </div>
+			            <!-- ./Team member -->
+            <%
+           			}
+	           	} else {
+	        %>
+	        		<p align="center"> 게시글이 없습니다.</p>
+	       	<%
+	           	}
+            %>
+        </div>
+	    <form action="/shopping_mall/reviewUpload" method="post" enctype="multipart/form-data">
+			아이디:<br>
+			<input type="text" name="id" maxlength="30" placeholder="아이디" style="text-indunt:5px" required/> <br>
+			내용:<br>
+			<textarea name="text" placeholder="후기" style="resize:none;text-indunt:5px;width:11.4rem;height:10rem;" required></textarea><br><br>
+			<input type="file" name="file" accept="image/*" onchange="chk_file_type(this)" required/> <br>
+			<input type="submit" value="업로드" onclick="LoadingWithMask()" style="width:3.5rem;height:2rem;background:#000;color:#fff;border-radius:5px;font-size:14px"/>
+		</form>
+		<script type="text/javascript">
 				function LoadingWithMask() {
 				    //화면의 높이와 너비를 구합니다.
 				    var maskHeight = $(document).height();
@@ -62,54 +125,40 @@
 				    $('#loadingImg').show();
 				    window.scrollTo(0,0);
 				}
-			</script>
-       		<%
-       			if (list != null) {
-            		for (int i = list.size() - 1; i >= 0; i--) {
-            			review = list.get(i);
-            %>
-			            <!-- Team member -->
-			           	<div class="col-xs-12 col-sm-6 col-md-4">
-			                <div class="image-flip" >
-			                    <div class="mainflip flip-0">
-			                        <div class="frontside">
-			                            <div class="card">
-			                                <div class="card-body text-center">
-			                                    <p><img class=" img-fluid" src="${pageContext.request.contextPath}/imageUpload/<%= review.getFileName() %>" alt="card image"></p>
-			                                    <h4 class="card-title"><%= review.getId() %></h4>
-			                                    <p class="card-text"><%= review.getText() %></p>
-			                                    <a href="https://www.fiverr.com/share/qb8D02" class="btn btn-primary btn-sm"><i class="fa fa-plus"></i></a>
-			                                </div>
-			                            </div>
-			                        </div>
-			                        <div class="backside">
-			                            <div class="card">
-			                                <div class="card-body text-center mt-4">
-			                                    <h4 class="card-title"><%= review.getId() %></h4>
-			                                    <p class="card-text"><%= review.getText() %></p>
-			                                </div>
-			                            </div>
-			                        </div>
-			                    </div>
-			                </div>
-			            </div>
-			            <!-- ./Team member -->
-            <%
-            		}
-       			}
-            %>
-        </div>
-        <style>
-        	
-        </style>
-	    <form action="/shopping_mall/reviewUpload" method="post" enctype="multipart/form-data">
-			아이디:<br>
-			<input type="text" name="id" maxlength="30" placeholder="아이디" style="text-indunt:5px" required/> <br>
-			내용:<br>
-			<textarea name="text" placeholder="후기" style="resize:none;text-indunt:5px;width:11.4rem;height:10rem;" required></textarea><br><br>
-			<input type="file" name="file" accept="image/*" onchange="chk_file_type(this)" required/> <br>
-			<input type="submit" value="업로드" onclick="LoadingWithMask()" style="width:3.5rem;height:2rem;background:#000;color:#fff;border-radius:5px;font-size:14px"/>
-		</form>
+		</script>
+		
+		<table width="1130">
+			<tr>
+				<td colspan="6" align="center" >
+					<%
+						if (count > 0) {
+							int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
+							int pageBlock = 10;
+							int startPage = ((currentPage - 1) / pageBlock) * pageBlock + 1;
+							int endPage = startPage + pageBlock - 1;
+							
+							if (endPage > pageBlock) {
+					%>
+								<a href="bullentin-board.jsp?pageNum=<%=startPage - 10%>">[이전]</a>
+					<%
+							}
+							
+							for (int i = startPage; i <= endPage; i++) {
+								if (i == currentPage) {
+					%>				
+									[<%=i %>]
+					<%
+								} else {
+					%>
+									<a href="bullentin-board.jsp?pageNum=<%=i %>">[<%=i %>]</a>
+					<%				
+								}
+							}
+						}
+					%>
+				</td>
+			</tr>
+		</table>
     </div>
 </section>
 </body>
