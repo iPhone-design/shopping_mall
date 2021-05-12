@@ -19,8 +19,12 @@ public class ReviewRepository {
 		dao.reviewAdd(review);
 	}
 	
-	public List<Review> reviewRead() {
-		return dao.reviewRead();
+	public List<Review> reviewRead(int startRow, int endRow) {
+		return dao.reviewRead(startRow, endRow);
+	}
+	
+	public int reviewCount() {
+		return dao.reviewCount();
 	}
 	
 	public void reviewDelete(int num) {
