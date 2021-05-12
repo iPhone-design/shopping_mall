@@ -43,7 +43,7 @@ public class QnaDao {
 				qna.setTitle(rs.getString(3));
 				qna.setDate(rs.getString(4));
 				qna.setContent(rs.getString(5));
-//				qna.setBbsAvailable(rs.getInt(6));
+				qna.setAvailable(rs.getInt(6));
 				list.add(qna);
 			}
 		} catch (Exception e) {
@@ -68,10 +68,49 @@ public class QnaDao {
 		return false;
 	}
 
-	public void qnaDelete(int num) {
+	public Qna getQna(int qna_num) {
+		try (Connection conn = ConnectionProvider.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(
+						"SELECT * FROM qna WHERE qna_num = ?");
+				ResultSet rs = pstmt.executeQuery();) {
+
+			pstmt.setInt(1, qna_num);
+			if (rs.next()) {
+				Qna qna = new Qna();
+				qna.setQna_Num(rs.getInt(1));
+				qna.setTitle(rs.getString(2));
+				qna.setId(rs.getString(3));
+				qna.setDate(rs.getString(4));
+				qna.setContent(rs.getString(5));
+				qna.setAvailable(rs.getInt(6));
+				return qna;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	//수정 함수
+
+	public int update(int qna_num, String title, String content) {
+		try (Connection conn = ConnectionProvider.getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(
+						"UPDATE qna SET title = ?, content = ? WHERE qna_num = ?");) {
+			pstmt.setString(1, title);
+			pstmt.setString(2, content);
+			pstmt.setInt(3, qna_num);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1; // 데이터베이스 오류
+	}
+
+	public void qnaDelete(int qna_num) {
 		try (Connection conn = ConnectionProvider.getConnection();
 				PreparedStatement pstmt = conn.prepareStatement("DELETE FROM qna WHERE qna_num = ?")) {
-			pstmt.setInt(1, num);
+			pstmt.setInt(1, qna_num);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

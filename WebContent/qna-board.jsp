@@ -37,7 +37,6 @@
 	%>
 
 	<!-- 네비게이션  -->
-
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
@@ -136,8 +135,7 @@
 
 			<%
 				}
-				if (qnaDao.nextPage(pageNumber)) {
-
+				if (qnaDao.nextPage(pageNumber + 1)) {
 			%>
 
 			<a href="bbs.jsp?pageNumber=<%=pageNumber + 1%>"
