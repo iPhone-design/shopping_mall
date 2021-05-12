@@ -9,18 +9,17 @@
 <meta name="viewport" content="width=device-width" initial-scale="1">
 <!-- 스타일시트 참조  -->
 <link rel="stylesheet" href="css/bootstrap/bootstrap.css">
-<title>jsp 게시판 웹사이트</title>
+<title>Q & A</title>
 </head>
 <body>
 
-	<%
-		//로긴한사람이라면 userID라는 변수에 해당 아이디가 담기고 그렇지 않으면 null값
+	<% //로긴한사람이라면 userID라는 변수에 해당 아이디가 담기고 그렇지 않으면 null값
 		String userID = null;
 		if (session.getAttribute("userID") != null) {
 			userID = (String) session.getAttribute("userID");
 		}
 	%>
-
+	
 	<!-- 네비게이션  -->
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
@@ -30,13 +29,12 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="main.jsp">JSP 게시판</a>
+			<a class="navbar-brand" href="index.jsp">메인페이지</a>
 		</div>
 		<div class="collapse navbar-collapse"
 			id="#bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="main.jsp">메인</a></li>
-				<li class="active"><a href="bbs.jsp">게시판</a></li>
+				<li class="active"><a href="qna-board.jsp">Q & A 게시판</a></li>
 			</ul>
 
 			<%
@@ -49,9 +47,10 @@
 					data-toggle="dropdown" role="button" aria-haspopup="true"
 					aria-expanded="false">접속하기<span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="login.jsp">로그인</a></li>
-						<li><a href="join.jsp">회원가입</a></li>
-					</ul></li>
+						<li><a href="login.html">로그인</a></li>
+						<li><a href="register.html">회원가입</a></li>
+					</ul>
+				</li>
 			</ul>
 
 			<%
@@ -64,20 +63,20 @@
 					aria-expanded="false">회원관리<span class="caret"></span></a>
 					<ul class="dropdown-menu">
 						<li><a href="logoutAction.jsp">로그아웃</a></li>
-					</ul></li>
+					</ul>
+				</li>
 			</ul>
 
 			<%
 				}
 			%>
-
+			
 		</div>
 	</nav>
-
-	<!-- 게시판 -->
+	<!-- 글쓰기 페이지 -->
 	<div class="container">
 		<div class="row">
-			<form method="post" action="writeAction.jsp">
+			<form method="post" action="qna-writeAction.jsp">
 				<table class="table table-striped"
 					style="text-align: center; border: 1px solid #dddddd">
 					<thead>
