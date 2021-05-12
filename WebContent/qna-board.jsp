@@ -1,6 +1,10 @@
+<%@page import="javax.security.auth.callback.ConfirmationCallback"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="java.io.PrintWriter"%>
+<%@page import="java.io.PrintWriter"%>
+<%@page import="board.qna.QnaDao"%>
+<%@page import="board.qna.Qna"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,16 +14,30 @@
 <!-- 스타일시트 참조  -->
 <link rel="stylesheet" href="css/bootstrap/bootstrap.css">
 <title>Q & A</title>
+<style type="text/css">
+	a, a:hover {
+		color: #000000;
+		text-decoration: none;
+	}
+</style>
 </head>
 <body>
-	<%
-		//로긴한사람이라면 userID라는 변수에 해당 아이디가 담기고 그렇지 않으면 null값
+
+	<% //로긴한사람이라면	 userID라는 변수에 해당 아이디가 담기고 그렇지 않으면 null값
 		String userID = null;
 		if (session.getAttribute("userID") != null) {
 			userID = (String) session.getAttribute("userID");
 		}
+		int pageNumber = 1; //기본 페이지 넘버
+
+		//페이지넘버값이 있을때
+		if (request.getParameter("pageNumber") != null) {
+			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		}
 	%>
+
 	<!-- 네비게이션  -->
+
 	<nav class="navbar navbar-default">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
@@ -33,11 +51,10 @@
 		<div class="collapse navbar-collapse"
 			id="#bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav">
-				<li><a href="qna-board.jsp">Q & A 게시판</a></li>
+				<li class="active"><a href="qna-board.jsp">Q & A 게시판</a></li>
 			</ul>
 
-			<%
-				// 로긴안된경우
+			<% //로긴안된경우
 				if (userID == null) {
 			%>
 
@@ -69,12 +86,14 @@
 			<%
 				}
 			%>
+
 		</div>
 	</nav>
 	<!-- 게시판 -->
 	<div class="container">
-		<div class = "row">
-			<table class="table table-striped" style="text-align:center; border:1px solid #dddddd"> 
+		<div class="row">
+			<table class="table table-striped"
+				style="text-align: center; border: 1px solid #dddddd">
 				<thead>
 					<tr>
 						<th style="background-color: #eeeeee; text-align: center;">번호</th>
@@ -84,20 +103,75 @@
 					</tr>
 				</thead>
 				<tbody>
+
+					<%
+						QnaDao qnaDao = new QnaDao();
+						ArrayList<Qna> list = qnaDao.qnaListRead(pageNumber);
+						for (int i = 0; i < list.size(); i++) {
+					%>
+
 					<tr>
-						<td>1</td>
-						<td>안녕하세요</td>
-						<td>남제현</td>
-						<td>2021-05-11</td>
+						<td><%=list.get(i).getQna_Num()%></td>
+						<td><a href="view.jsp?bbsID=<%=list.get(i).getQna_Num()%>"><%=list.get(i).getTitle()%></a></td>
+						<td><%=list.get(i).getId()%></td>
+						<td><%=list.get(i).getDate().substring(0, 11) + list.get(i).getDate().substring(11, 13) + "시"
+						+ list.get(i).getDate().substring(14, 16) + "분"%></td>
 					</tr>
+
+					<%
+						}
+					%>
+
 				</tbody>
-			</table>	
-			<a href = "qna-write.jsp" class="btn btn-primary pull-right">글쓰기</a>
+			</table>
+
+			<!-- 페이지 넘기기 -->
+
+			<%
+				if (pageNumber != 1) {
+			%>
+
+			<a href="bbs.jsp?pageNumber=<%=pageNumber - 1%>"
+				class="btn btn-success btn-arrow-left">이전</a>
+
+			<%
+				}
+				if (qnaDao.nextPage(pageNumber)) {
+
+			%>
+
+			<a href="bbs.jsp?pageNumber=<%=pageNumber + 1%>"
+				class="btn btn-success btn-arrow-left">다음</a>
+
+			<%
+				}
+			%>
+			
+			<!-- 회원만넘어가도록 -->
+			<!-- 회원정보 받아오면 주석풀기~~~~~~~~~~~~~~~~~~~
+			~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+			<%-- <% //if logined userID라는 변수에 해당 아이디가 담기고 if not null
+				if (session.getAttribute("userID") != null) {
+			%>
+			 --%>
+			<a href="qna-write.jsp" class="btn btn-primary pull-right">글쓰기</a>
+			
+			<%-- <%
+				} else {
+			%>
+
+			<button class="btn btn-primary pull-right"
+				onclick="if(confirm('로그인 후 사용 가능합니다.'))location.href='login.html';"
+				type="button">글쓰기</button>
+
+			<%
+				}
+			%> --%>
 		</div>
 	</div>
-
 	<!-- 애니매이션 담당 JQUERY -->
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<!-- 부트스트랩 JS  -->
 	<script src="js/bootstrap/bootstrap.js"></script>
 </body>
 </html>

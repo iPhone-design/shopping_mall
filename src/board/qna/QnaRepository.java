@@ -23,8 +23,8 @@ public class QnaRepository {
 		dao.qnaAdd(qna);
 	}
 	
-	public List<Qna> qnaRead() {
-		return dao.qnaRead();
+	public List<Qna> qnaListRead(int pageNum) {
+		return dao.qnaListRead(pageNum);
 	}
 	
 	public void qnaDelete(int num) {
